@@ -1,0 +1,4 @@
+export const users = [
+  { id: 1, name: "user1", password: "password1" },
+  { id: 2, name: "user2", password: "password2" },
+];
