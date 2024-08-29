@@ -21,7 +21,7 @@ export const login = async (req, res) => {
 
     // 生成 JWT token
     const token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, {
-      expiresIn: "1h",
+      expiresIn: "7d",
     });
     return res.json({ token });
   } catch {

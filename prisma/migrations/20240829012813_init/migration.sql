@@ -1,0 +1,14 @@
+-- CreateTable
+CREATE TABLE `transactions` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `type` ENUM('INCOME', 'EXPENSE', 'TRANSFER', 'BORROW', 'LEND', 'DEBT_COLLECTION', 'DEBT_PAYMENT') NOT NULL,
+    `amount` DECIMAL(10, 2) NOT NULL,
+    `description` VARCHAR(255) NULL,
+    `date` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `fromAccountId` INTEGER NULL,
+    `toAccountId` INTEGER NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
