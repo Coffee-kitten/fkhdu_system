@@ -12,14 +12,32 @@ export const authUser = async (email, password) => {
   });
 };
 
+// 密码修改
+export const changePWD = async (email) => {
+  const user = await prisma.user.findFirst({
+    where: {
+      email,
+    },
+    select: {
+      password: true,
+    },
+  });
+  return user.password;
+};
+
+export const updatePassword = async (email, newPassword) => {
+  return await prisma.user.update({
+    where: {
+      email,
+    },
+    data: {
+      password: newPassword,
+    },
+  });
+};
 export const TransactionType = {
   INCOME: "收入",
   EXPENSE: "支出",
-  TRANSFER: "转账",
-  BORROW: "借入",
-  LEND: "借出",
-  DEBT_COLLECTION: "收债",
-  DEBT_PAYMENT: "还债",
 };
 
 // 创建新交易记录
@@ -48,10 +66,22 @@ export const getTransactionById = async (id) => {
 };
 
 // 更新交易记录
-export const updateTransaction = async (id, transactionData) => {
+export const updateTransaction = async (transactionData) => {
   return await prisma.transaction.update({
-    where: { id },
-    data: transactionData,
+    where: {
+      id: transactionData.id, // 使用交易记录的唯一 ID 来定位要更新的记录
+    },
+    data: {
+      ...transactionData,
+    },
+  });
+};
+
+export const delTransaction = async (transactionId) => {
+  return await prisma.transaction.delete({
+    where: {
+      id: transactionId.id,
+    },
   });
 };
 

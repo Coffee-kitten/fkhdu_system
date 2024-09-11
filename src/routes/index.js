@@ -1,8 +1,10 @@
 import { Router } from "express";
-import { login } from "../controllers/auth.js";
+import { login, changepwd } from "../controllers/auth.js";
 import {
   createTransactionController,
   getTransactionsController,
+  postChangeTransaction,
+  postDelTransaction,
 } from "../controllers/transaction.js";
 import { authenticateToken } from "../middlewares/auth.js";
 
@@ -11,10 +13,9 @@ const router = Router();
 const routes = [
   { path: "/api/v1/passport/auth/login", method: "post", handler: login },
   {
-    path: "/api/v1/user/transaction",
+    path: "/api/v1/passport/auth/changepwd",
     method: "post",
-    middlewares: [authenticateToken],
-    handler: createTransactionController,
+    handler: changepwd,
   },
   {
     path: "/api/v1/user/transaction",
@@ -27,6 +28,18 @@ const routes = [
     method: "get",
     middlewares: [authenticateToken],
     handler: getTransactionsController,
+  },
+  {
+    path: "/api/v1/user/transaction/change",
+    method: "post",
+    middlewares: [authenticateToken],
+    handler: postChangeTransaction,
+  },
+  {
+    path: "/api/v1/user/transaction/del",
+    method: "post",
+    middlewares: [authenticateToken],
+    handler: postDelTransaction,
   },
 ];
 
